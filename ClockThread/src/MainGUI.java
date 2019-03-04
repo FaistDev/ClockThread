@@ -1,3 +1,6 @@
+
+import java.time.LocalTime;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,6 +18,8 @@ public class MainGUI extends javax.swing.JFrame {
      */
     public MainGUI() {
         initComponents();
+        TimePanel tp = new TimePanel(LocalTime.now());
+        paTime.add(tp);
     }
 
     /**
@@ -33,7 +38,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         jLabel1.setText("Local Time:");
 
-        paTime.setLayout(new java.awt.GridLayout(1, 8));
+        paTime.setLayout(new java.awt.GridLayout(1, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -43,7 +48,7 @@ public class MainGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(paTime, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+                .addComponent(paTime, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
