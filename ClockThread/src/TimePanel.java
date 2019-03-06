@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.time.Instant;
 import java.time.LocalTime;
@@ -6,6 +7,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -35,7 +37,7 @@ public class TimePanel extends JPanel implements Runnable {
     
 
     private void init() {
-        this.setLayout(new GridLayout(1,9));
+        this.setLayout(new GridLayout(1,9,1,1));
         JLabel timezone = new JLabel(this.timezone);
         h1 = new JLabel(getIcon(getZiffer(true, time.getHour())));
         h2 = new JLabel(getIcon(getZiffer(false, time.getHour())));

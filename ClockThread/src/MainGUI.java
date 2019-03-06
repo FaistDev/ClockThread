@@ -21,11 +21,18 @@ public class MainGUI extends javax.swing.JFrame {
      */
     public MainGUI() {
         initComponents();
-        TimePanel tp = new TimePanel("America/Los_Angeles");
-        paTime.add(tp);
-        new Thread((Runnable)tp).start();
         
+        TimePanel local = new TimePanel("Europe/Vienna");
+        paTime.add(local);
+        new Thread((Runnable)local).start();
         
+        TimePanel los_a = new TimePanel("America/Los_Angeles");
+        paTime.add(los_a);
+        new Thread((Runnable)los_a).start();       
+        
+        TimePanel newyork = new TimePanel("America/New_York");
+        paTime.add(newyork);
+        new Thread((Runnable)newyork).start();       
        
     }
 
@@ -42,7 +49,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        paTime.setLayout(new java.awt.GridLayout(1, 1));
+        paTime.setLayout(new java.awt.GridLayout(10, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -50,14 +57,14 @@ public class MainGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(paTime, javax.swing.GroupLayout.DEFAULT_SIZE, 879, Short.MAX_VALUE)
+                .addComponent(paTime, javax.swing.GroupLayout.DEFAULT_SIZE, 1235, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(paTime, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addComponent(paTime, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
