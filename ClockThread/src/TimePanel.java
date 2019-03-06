@@ -1,6 +1,11 @@
 
 import java.awt.GridLayout;
+import java.time.Instant;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,35 +19,52 @@ import javax.swing.JPanel;
  *
  * @author Ben
  */
-public class TimePanel extends JPanel {
+public class TimePanel extends JPanel implements Runnable {
 
-    private LocalTime time;
+    private ZonedDateTime time;
+    private ZoneId zid;
+    private String timezone;
+    private JLabel h1,h2,m1,m2,s1,s2,doublepoint1,doublepoint2;
 
-    public TimePanel(LocalTime time) {
-        this.time = time;
+    public TimePanel(String timezone) {
+        this.timezone=timezone;
+        zid =  ZoneId.of(timezone);
+        time = ZonedDateTime.ofInstant(Instant.now(),zid);
         init();
     }
+    
 
     private void init() {
-        this.setLayout(new GridLayout(1,8));
-        System.out.println(getZiffer(true, time.getHour()));
-        System.out.println(getZiffer(false, time.getHour()));
-
-        JLabel h1 = new JLabel(getIcon(getZiffer(true, time.getHour())));
-        JLabel h2 = new JLabel(getIcon(getZiffer(false, time.getHour())));
-        //JLabel doppelpoint1 = new JLabel(icon);
-        JLabel m1 = new JLabel(getIcon(getZiffer(true, time.getMinute())));
-        JLabel m2 = new JLabel(getIcon(getZiffer(false, time.getMinute())));
-        //JLabel doppelpoint2 = new JLabel(icon);
-        JLabel s1 = new JLabel(getIcon(getZiffer(true, time.getSecond())));
-        JLabel s2 = new JLabel(getIcon(getZiffer(false, time.getSecond())));
-
+        this.setLayout(new GridLayout(1,9));
+        JLabel timezone = new JLabel(this.timezone);
+        h1 = new JLabel(getIcon(getZiffer(true, time.getHour())));
+        h2 = new JLabel(getIcon(getZiffer(false, time.getHour())));
+        m1 = new JLabel(getIcon(getZiffer(true, time.getMinute())));
+        m2 = new JLabel(getIcon(getZiffer(false, time.getMinute())));
+        s1 = new JLabel(getIcon(getZiffer(true, time.getSecond())));
+        s2 = new JLabel(getIcon(getZiffer(false, time.getSecond())));
+        doublepoint1 = new JLabel(new ImageIcon("icons/doppelpoint.png"));
+        doublepoint2 = new JLabel(new ImageIcon("icons/doppelpoint.png"));
+        
+        this.add(timezone);
         this.add(h1);
         this.add(h2);
+        this.add(doublepoint1);
         this.add(m1);
         this.add(m2);
+        this.add(doublepoint2);
         this.add(s1);
         this.add(s2);
+    }
+    
+    private void setDigits(){
+        time = ZonedDateTime.ofInstant(Instant.now(),zid);
+        h1.setIcon(getIcon(getZiffer(true, time.getHour())));
+        h2.setIcon(getIcon(getZiffer(false, time.getHour())));
+        m1.setIcon(getIcon(getZiffer(true, time.getMinute())));
+        m2.setIcon(getIcon(getZiffer(false, time.getMinute())));
+        s1.setIcon(getIcon(getZiffer(true, time.getSecond())));
+        s2.setIcon(getIcon(getZiffer(false, time.getSecond())));
     }
 
     private ImageIcon getIcon(int ziffer) {
@@ -66,5 +88,19 @@ public class TimePanel extends JPanel {
                 return Integer.parseInt(x.substring(1, 2));
             }
         }
+    }
+
+    @Override
+    public void run() {
+        while(true){
+            setDigits();
+            repaint();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TimePanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
     }
 }
