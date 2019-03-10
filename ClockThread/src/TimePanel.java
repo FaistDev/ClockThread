@@ -74,7 +74,7 @@ public class TimePanel extends JPanel implements Runnable {
         return icon;
     }
 
-    private int getZiffer(boolean zifferPos, int digits) {
+    public int getZiffer(boolean zifferPos, int digits) {
         if (zifferPos) {
             if (digits < 10) {
                 return 0;
